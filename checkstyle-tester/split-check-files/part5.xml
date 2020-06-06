@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+          "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+          "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<module name = "Checker">
+    <property name="charset" value="UTF-8"/>
+
+    <!-- do not change severity to 'error', as that will hide errors caused by exceptions -->
+    <property name="severity" value="warning"/>
+
+    <!-- haltOnException is required for exception fixes and reporting of all exceptions -->
+    <property name="haltOnException" value="false"/>
+
+    <!-- BeforeExecutionFileFilters is required for sources of java9 -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$" />
+    </module>
+
+    <module name="TreeWalker">
+ <!-- Naming Conventions -->
+        <module name="AbbreviationAsWordInName">
+            <property name="ignoreFinal" value="false"/>
+            <property name="allowedAbbreviationLength" value="0"/>
+            <property name="allowedAbbreviations" value="AST"/>
+        </module>
+        <module name="AbstractClassName"/>
+        <module name="ClassTypeParameterName"/>
+        <module name="ConstantName"/>
+        <module name="InterfaceTypeParameterName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+            <property name="allowOneCharVarInForLoop" value="true"/>
+        </module>
+        <module name="MemberName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+        </module>
+        <module name="MethodName"/>
+        <module name="MethodTypeParameterName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+            <property name="ignoreOverridden" value="true"/>
+        </module>
+        <module name="LambdaParameterName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+        </module>
+        <module name="CatchParameterName">
+            <property name="format" value="^(ex|[a-z][a-z][a-zA-Z]+)$"/>
+        </module>
+        <module name="StaticVariableName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+        </module>
+        <module name="TypeName"/>
+
+        <!-- Regexp -->
+        <module name="Regexp"/>
+        <module name="RegexpSinglelineJava"/>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="[^\p{ASCII}]"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+
+        <!-- Size Violations -->
+        <module name="AnonInnerLength"/>
+        <module name="ExecutableStatementCount">
+            <property name="max" value="30"/>
+        </module>
+        <module name="MethodCount">
+            <property name="maxTotal" value="34"/>
+        </module>
+        <module name="MethodLength"/>
+        <module name="OuterTypeNumber"/>
+        <module name="ParameterNumber"/>
+
+        <!-- Whitespace -->
+        <module name="EmptyForInitializerPad"/>
+        <module name="EmptyForIteratorPad"/>
+        <module name="EmptyLineSeparator">
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+        </module>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="NoLineWrap"/>
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="ARRAY_INIT"/>
+            <property name="tokens" value="AT"/>
+            <property name="tokens" value="BNOT"/>
+            <property name="tokens" value="DEC"/>
+            <property name="tokens" value="DOT"/>
+            <property name="tokens" value="INC"/>
+            <property name="tokens" value="LNOT"/>
+            <property name="tokens" value="UNARY_MINUS"/>
+            <property name="tokens" value="UNARY_PLUS"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
+            <property name="tokens" value="INDEX_OP"/>
+            <property name="tokens" value="METHOD_REF"/>
+        </module>
+        <module name="NoWhitespaceBefore"/>
+        <module name="NoWhitespaceBefore">
+            <property name="tokens" value="DOT"/>
+            <property name="tokens" value="METHOD_REF"/>
+            <property name="allowLineBreaks" value="true"/>
+        </module>
+        <module name="OperatorWrap">
+            <property name="tokens" value="QUESTION"/>
+            <property name="tokens" value="COLON"/>
+            <property name="tokens" value="EQUAL"/>
+            <property name="tokens" value="NOT_EQUAL"/>
+            <property name="tokens" value="DIV"/>
+            <property name="tokens" value="PLUS"/>
+            <property name="tokens" value="MINUS"/>
+            <property name="tokens" value="STAR"/>
+            <property name="tokens" value="MOD"/>
+            <property name="tokens" value="SR"/>
+            <property name="tokens" value="BSR"/>
+            <property name="tokens" value="GE"/>
+            <property name="tokens" value="GT"/>
+            <property name="tokens" value="SL"/>
+            <property name="tokens" value="LE"/>
+            <property name="tokens" value="LT"/>
+            <property name="tokens" value="BXOR"/>
+            <property name="tokens" value="BOR"/>
+            <property name="tokens" value="LOR"/>
+            <property name="tokens" value="BAND"/>
+            <property name="tokens" value="LAND"/>
+            <property name="tokens" value="TYPE_EXTENSION_AND"/>
+            <property name="tokens" value="LITERAL_INSTANCEOF"/>
+            <property name="tokens" value="METHOD_REF"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="OperatorWrap">
+            <property name="tokens" value="ASSIGN"/>
+            <property name="tokens" value="DIV_ASSIGN"/>
+            <property name="tokens" value="PLUS_ASSIGN"/>
+            <property name="tokens" value="MINUS_ASSIGN"/>
+            <property name="tokens" value="STAR_ASSIGN"/>
+            <property name="tokens" value="MOD_ASSIGN"/>
+            <property name="tokens" value="SR_ASSIGN"/>
+            <property name="tokens" value="BSR_ASSIGN"/>
+            <property name="tokens" value="SL_ASSIGN"/>
+            <property name="tokens" value="BXOR_ASSIGN"/>
+            <property name="tokens" value="BOR_ASSIGN"/>
+            <property name="tokens" value="BAND_ASSIGN"/>
+            <property name="option" value="eol"/>
+        </module>
+        <module name="ParenPad"/>
+        <module name="SeparatorWrap">
+            <property name="tokens" value="DOT"/>
+            <property name="tokens" value="AT"/>
+            <property name="tokens" value="METHOD_REF"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="tokens" value="COMMA"/>
+            <property name="tokens" value="RBRACK"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
+            <property name="tokens" value="ELLIPSIS"/>
+            <property name="tokens" value="SEMI"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SingleSpaceSeparator">
+            <property name="validateComments" value="false"/>
+        </module>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
+
+         <!-- usuppress javadoc parsing errors, as we test Check not a parser -->
+         <module name="SuppressionXpathSingleFilter">
+            <property name="message" value="Javadoc comment at column \d+ has parse error"/>
+         </module>
+    </module>
+
+    <!-- as we run on regression even on non-compiled files we need to skip exceptions on them -->
+    <module name="SuppressionSingleFilter">
+      <property name="message" value="Exception occurred while parsing"/>
+      <property name="checks" value="Checker"/>
+    </module>
+</module>
