@@ -7,11 +7,11 @@
 
 CONTACTSERVER=true
 
-PULL_REMOTE=pull
+PULL_REMOTE=remotes/origin
 
-CHECKSTYLE_DIR=~/checkstyle
-SEVNTU_DIR=~/sevntu.checkstyle
-CONTRIBUTION_DIR=~/contribution
+CHECKSTYLE_DIR=~/checkstyle/checkstyle
+SEVNTU_DIR=~/checkstyle/sevntu.checkstyle
+CONTRIBUTION_DIR=~/checkstyle/contribution
 TEMP_DIR=/tmp/launch_diff
 
 TESTER_DIR=$CONTRIBUTION_DIR/checkstyle-tester
