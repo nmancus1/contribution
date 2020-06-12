@@ -1,12 +1,12 @@
 #!/bin/bash
-# Usage: Automate check behavior regression report
+# Usage: Automate check behavior regression report by running diff.groovy on
+#   all config files in a given directory
 # Must be run in contribution/checkstyle-tester directory!
 # Use absolute paths in setup variables
 
 ################ SETUP ##################
-checkstyle_tester_dir=$(pwd)
 #Set your checkstyle directory
-checkstyle_dir=${HOME}/checkstyle
+checkstyle_dir=${HOME}/IdeaProjects/checkstyle
 #Set output directory
 output_dir=${HOME}/reports
 #Set directory with configs
@@ -14,21 +14,21 @@ config_dir=${HOME}/xml_check_configs
 ##########################################
 
 #Set time variable for tracking report and log generation
-time=$(date '+%Y_%m_%d');
+time=$(date '+%m_%d');
 
+PATCH_BRANCH=$1
 #Exit if no patch branch is specified
-if [ -z "$1" ]; then
-    echo "Need to specify valid patch branch as command line arguement."
+if [ -z "$PATCH_BRANCH" ]; then
+    echo "Need to specify valid patch branch as command line argument."
     echo "Example:  ./launch_diff_check.sh your-patch-branch"
     exit 1
-elif [ ! $(cd "$checkstyle_dir" && git branch --list "$branch_name") ]; then
-    echo "git branch $PATCH_BRANCH does not exist"
-    echo "Enter a valid patch branch."
+elif [ ! "$(cd "$checkstyle_dir" && git branch --list "$PATCH_BRANCH")" ]; then
+    echo "git branch \"$PATCH_BRANCH\" does not exist or incorrect checkstyle directory specified."
+    echo "Enter a valid patch branch and verify checkstyle directory is correct."
     exit 1
 fi
 
-PATCH_BRANCH=$1
-echo "Running check regression reports on patch branch: $1"
+echo "Running check regression reports for patch branch: $1"
 echo "Make sure that you have selected all projects from projects-to-test-on.properties!"
 sleep 5
 
@@ -40,15 +40,14 @@ mkdir -p "$report_directory"
 
 #Begin running reports, "shopt" usage to eliminate undefinied for loop behavior
 shopt -s nullglob
-echo "Log files will populate in $log_directory"
-echo "Reports will populate in $report_directory"
 
-#Iterate through every config file in specified directory and generate report
+#Iterate through every config file in specified directory and generate report for each
+#If report generation for one config fails, script will try the next one.
 for file in "$config_dir"/*.xml;
 do
     filename=$(basename -- "$file")
     filename="${filename%.*}"
-    echo "Running check regression report using config file $file..."
+    echo "Generating check regression diff report using config $file..."
     groovy diff.groovy \
     -r "$checkstyle_dir" \
     -b master -p "$PATCH_BRANCH" \
@@ -57,16 +56,14 @@ do
     > "$log_directory"/logfile_"$filename" 2>&1
     sleep 5
 
-    echo "Moving reports to report directory..."
-    if ! mv ./reports/diff "$report_directory"/diff_"$filename" ; then
-        echo "Script failed!"
-        echo "logfile_$filename generated in $log_directory."
-        exit 1
+    if mv ./reports/diff "$report_directory"/diff_"$filename" ; then
+        echo "Check regression diff report for config file $file completed."
+    else
+        tail "$log_directory"/logfile_"$filename"
+        echo ""#add config file check; grep for saxon or whatever
+        echo "Report generation for config $filename.xml failed!"
+        echo "See logfile_$filename generated in $log_directory for details."
     fi
-
-    echo "Check regression report for config file $file completed."
-    echo "logfile_$filename generated in $log_directory."
-    echo "report diff_$filename generated in $report_directory."
 
     sleep 5
 
