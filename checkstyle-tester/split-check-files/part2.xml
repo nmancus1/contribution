@@ -18,25 +18,6 @@
     </module>
 
     <module name="TreeWalker">
- <!-- Coding -->
-        <module name="ArrayTrailingComma"/>
-        <module name="AvoidDoubleBraceInitialization"/>
-        <module name="AvoidInlineConditionals"/>
-        <module name="AvoidNoArgumentSuperConstructorCall"/>
-        <module name="CovariantEquals"/>
-        <module name="DeclarationOrder"/>
-        <module name="DefaultComesLast"/>
-        <module name="EmptyStatement"/>
-        <module name="EqualsAvoidNull"/>
-        <module name="EqualsHashCode"/>
-        <module name="ExplicitInitialization"/>
-        <module name="FallThrough"/>
-        <module name="FinalLocalVariable"/>
-        <module name="HiddenField">
-            <property name="ignoreConstructorParameter" value="true"/>
-            <property name="ignoreSetter" value="true"/>
-            <property name="setterCanReturnItsClass" value="true"/>
-        </module>
         <module name="IllegalCatch">
             <property name="illegalClassNames"
                       value="java.lang.Exception,
@@ -53,77 +34,8 @@
                          antlr.TokenStreamRecognitionException, antlr.ANTLRException,
                          java.lang.StringBuffer"/>
         </module>
-        <module name="IllegalThrows"/>
-        <module name="IllegalToken">
-            <property name="tokens" value="LABELED_STAT"/>
-            <property name="tokens" value="LITERAL_NATIVE"/>
-            <property name="tokens" value="LITERAL_VOLATILE"/>
-            <property name="tokens" value="LITERAL_ASSERT"/>
-        </module>
-        <module name="IllegalTokenText">
-            <property name="tokens" value="STRING_LITERAL"/>
-            <property name="format" value="^(US-ASCII|ISO-8859-1|UTF-8|UTF-16BE|UTF-16LE|UTF-16)$"/>
-            <property name="ignoreCase" value="true"/>
-        </module>
-        <module name="IllegalType">
-            <property name="illegalClassNames"
-                      value="java.util.HashSet, HashSet, java.util.LinkedHashMap, LinkedHashMap,
-                       java.util.TreeMap, TreeMap, java.util.HashMap, HashMap,
-                       java.util.LinkedHashSet, LinkedHashSet, java.util.TreeSet, TreeSet,
-                       java.lang.StringBuffer, StringBuffer"/>
-        </module>
         <module name="InnerAssignment"/>
         <module name="MagicNumber"/>
-        <module name="MissingCtor">
-            <!--
-              we will not use that fanatic validation, extra code is not good
-              But this Check will exists as it was created by community demand.
-            -->
-            <property name="severity" value="ignore"/>
-        </module>
-        <module name="MissingSwitchDefault"/>
-        <module name="ModifiedControlVariable"/>
-        <module name="MultipleStringLiterals"/>
-        <module name="MultipleVariableDeclarations"/>
-        <module name="NestedForDepth">
-            <property name="max" value="2"/>
-        </module>
-        <module name="NestedIfDepth">
-            <property name="max" value="3"/>
-        </module>
-        <module name="NestedTryDepth"/>
-        <module name="NoArrayTrailingComma">
-            <!-- This Check is conflicting with ArrayTrailingComma -->
-            <property name="severity" value="ignore"/>
-        </module>
-        <module name="NoClone"/>
-        <module name="NoEnumTrailingComma">
-            <!-- This Check is conflicting with our vision of code
-                 to be same as ArrayTrailingComma requires it -->
-            <property name="severity" value="ignore"/>
-        </module>
-        <module name="NoFinalizer"/>
-        <module name="OneStatementPerLine"/>
-        <module name="OverloadMethodsDeclarationOrder"/>
-        <module name="PackageDeclaration"/>
-        <module name="ParameterAssignment"/>
-        <module name="RequireThis"/>
-        <module name="ReturnCount">
-            <property name="max" value="1"/>
-            <property name="maxForVoid" value="0"/>
-        </module>
-        <module name="SimplifyBooleanExpression"/>
-        <module name="SimplifyBooleanReturn"/>
-        <module name="StringLiteralEquality"/>
-        <module name="SuperClone"/>
-        <module name="SuperFinalize"/>
-        <module name="UnnecessaryParentheses"/>
-        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
-        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
-        <module name="UnnecessarySemicolonInEnumeration"/>
-        <module name="UnnecessarySemicolonInTryWithResources"/>
-        <module name="VariableDeclarationUsageDistance"/>
-
         <!-- Filters -->
         <module name="SuppressionCommentFilter">
             <!--
@@ -201,7 +113,7 @@
         </module>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
-         
+
          <!-- usuppress javadoc parsing errors, as we test Check not a parser -->
          <module name="SuppressionXpathSingleFilter">
             <property name="message" value="Javadoc comment at column \d+ has parse error"/>
