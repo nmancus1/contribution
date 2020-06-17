@@ -123,62 +123,6 @@
         <module name="UnnecessarySemicolonInEnumeration"/>
         <module name="UnnecessarySemicolonInTryWithResources"/>
         <module name="VariableDeclarationUsageDistance"/>
-
-        <!-- Filters -->
-        <module name="SuppressionCommentFilter">
-            <!--
-              Use suppressions.xml for suppressions, this is only example.
-              checkFormat will prevent suppression comments from being valid.
-            -->
-            <property name="checkFormat" value="IGNORETHIS"/>
-            <property name="offCommentFormat" value="CSOFF\: .*"/>
-            <property name="onCommentFormat" value="CSON\: .*"/>
-        </module>
-        <!-- Tone down the checking for test code -->
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value="[\\/]internal[\\/].*[\\/]\w+Util\.java"/>
-            <property name="checks" value="IllegalCatch"/>
-        </module>
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value=".*[\\/]src[\\/]test[\\/]"/>
-            <property name="checks" value="EmptyBlock"/>
-        </module>
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value=".*[\\/]src[\\/](test|it)[\\/]"/>
-            <property name="checks" value="JavadocVariable"/>
-        </module>
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value=".*[\\/]src[\\/](test|it)[\\/]"/>
-            <property name="checks" value="JavadocType"/>
-        </module>
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value=".*[\\/]src[\\/](test|it)[\\/]"/>
-            <property name="checks" value="MagicNumber"/>
-        </module>
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value=".*[\\/]src[\\/](test|it)[\\/]"/>
-            <property name="checks" value="AvoidStaticImport"/>
-        </module>
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value=".*[\\/]src[\\/](test|it)[\\/]"/>
-            <property name="checks" value="WriteTag"/>
-        </module>
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value=".*[\\/]src[\\/](test|it)[\\/]"/>
-            <property name="checks" value="MethodCount"/>
-        </module>
-        <!-- Fixing these cases will decrease code readability -->
-        <module name="SuppressionXpathSingleFilter">
-            <property name="files" value=".*[\\/]src[\\/](test|it)[\\/]"/>
-            <property name="checks" value="MultipleStringLiterals"/>
-        </module>
-        <module name="SuppressWithNearbyCommentFilter">
-            <property name="commentFormat"
-                      value="-@cs\[(\w{8,}(\|\w{8,})*)\] \w[\(\)\-\.\'\`\,\:\;\w ]{10,}"/>
-            <property name="checkFormat" value="$1"/>
-            <property name="influenceFormat" value="3"/>
-        </module>
-
          <!-- usuppress javadoc parsing errors, as we test Check not a parser -->
          <module name="SuppressionXpathSingleFilter">
             <property name="message" value="Javadoc comment at column \d+ has parse error"/>
