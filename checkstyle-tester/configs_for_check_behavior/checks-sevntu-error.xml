@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+    <!--
+      this config is a copy of
+      https://github.com/checkstyle/checkstyle/blob/master/config/checkstyle_sevntu_checks.xml
+      with update to global severity=ignore to catch only exceptions and changed to full package names.
+
+      Some other checks are commented out to speed up execution time.
+    -->
+
+    <!-- do not change severity to 'error', as that will hide errors caused by exceptions -->
+    <property name="severity" value="warning"/>
+
+    <!-- haltOnException is required for exception fixes and reporting of all exceptions -->
+    <property name="haltOnException" value="false"/>
+    <!-- All checks are from https://github.com/sevntu-checkstyle/sevntu.checkstyle project -->
+
+    <!-- BeforeExecutionFileFilters is required for sources of java9 -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+    <!-- as we run on regression even on non-compiled files we need to skip exceptions on them -->
+    <module name="SuppressionSingleFilter">
+        <property name="message" value="Exception occurred while parsing"/>
+        <property name="checks" value="Checker"/>
+    </module>
+
+    <module name="TreeWalker">
+        <!-- usuppress javadoc parsing errors, as we test Check not a parser -->
+        <module name="SuppressionXpathSingleFilter">
+            <property name="message" value="Javadoc comment at column \d+ has parse error"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.design.StaticMethodCandidateCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.UselessSingleCatchCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.NestedSwitchCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.CauseParameterInExceptionCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.NameConventionForJunit4TestClassesCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.EmptyPublicCtorInClassCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.TernaryPerExpressionCountCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ReturnNullInsteadOfBooleanCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ReturnBooleanFromTernaryCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.PublicReferenceToPrivateTypeCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.NoNullForCollectionReturnCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.NoMainMethodInAbstractClassCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ForbidThrowAnonymousExceptionsCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ForbidReturnInFinallyBlockCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ForbidInstantiationCheck">
+            <property name="forbiddenClasses" value="java.lang.NullPointerException,
+             java.util.Vector, java.util.Stack,com.google.collect.Iterables,
+             com.google.common.primitives.Ints,com.google.common.base.String,
+             com.google.common.base.Function,com.google.common.base.Supplier,
+             com.google.common.base.Charsets,com.google.common.base.MoreObjects,
+             com.google.common.base.Optional,com.google.common.base.Equivalence,
+             com.google.common.base.Preconditions,com.google.common.base.Predicate,
+             com.google.common.io.CharSource,com.google.common.annotations.Beta,
+             com.google.common.collect.Queues,com.google.common.collect.Sets,
+             com.google.common.collect.Lists,com.google.common.annotations.GwtCompatible,
+             com.google.common.io.Files,com.google.common.collect.TreeTraverser"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ForbidCCommentsInMethodsCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.FinalizeImplementationCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.DiamondOperatorForVariableDefinitionCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ConfusingConditionCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.AvoidDefaultSerializableInInnerClassesCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.UselessSuperCtorCallCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.UnnecessaryParenthesesExtendedCheck">
+            <property name="ignoreCalculationOfBooleanVariables" value="true"/>
+            <property name="ignoreCalculationOfBooleanVariablesWithReturn" value="true"/>
+            <property name="ignoreCalculationOfBooleanVariablesWithAssert" value="true"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.MultipleVariableDeclarationsExtendedCheck">
+            <property name="ignoreCycles" value="true"/>
+            <property name="ignoreMethods" value="true"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.design.ChildBlockLengthCheck">
+            <property name="blockTypes"
+                      value="LITERAL_IF,LITERAL_ELSE,LITERAL_WHILE,LITERAL_DO,
+                             LITERAL_FOR,LITERAL_SWITCH,LITERAL_TRY,LITERAL_CATCH"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.MapIterationInForEachLoopCheck">
+            <property name="proposeKeySetUsage" value="true"/>
+            <property name="proposeEntrySetUsage" value="true"/>
+        </module>
+
+        <!--Might cause problems related to issue:
+        https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/352-->
+        <module name="com.github.sevntu.checkstyle.checks.coding.AvoidConstantAsFirstOperandInConditionCheck">
+            <property name="targetConstantTypes"
+                      value="LITERAL_NULL,LITERAL_TRUE,LITERAL_FALSE,
+                             NUM_INT,NUM_DOUBLE,NUM_LONG,NUM_FLOAT"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.EitherLogOrThrowCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.IllegalCatchExtendedCheck">
+            <property name="allowRethrow" value="true"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.AvoidNotShortCircuitOperatorsForBooleanCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.RedundantReturnCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.WhitespaceBeforeArrayInitializerCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.InnerClassCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.naming.EnumValueNameCheck">
+            <property name="format" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.OverridableMethodInConstructorCheck">
+            <property name="checkCloneMethod" value="true"/>
+            <property name="checkReadObjectMethod" value="true"/>
+            <property name="matchMethodsByArgCount" value="true"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationCheck">
+            <property name="annotationNames" value="Ignore, VisibleForTesting"/>
+            <property name="annotationTargets" value="METHOD_DEF"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.annotation.RequiredParameterForAnnotationCheck">
+            <property name="annotationName" value="Generated"/>
+            <property name="requiredParameters" value="value"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck">
+            <property name="packageNameRegexp" value=".+"/>
+            <property name="forbiddenImportsRegexp" value="java\.util\.Stack|java\.util\.Vector|
+            com\.google\.collect\.Iterables|com\.google\.common\.annotations\.Beta|
+            com\.google\.common\.base\.Predicate|com\.google\.common\.base\.String||
+            com\.google\.common\.base\.Function|com\.google\.common\.base\.Supplier|
+            com\.google\.common\.base\.Charsets|com\.google\.common\.base\.MoreObjects|
+            com\.google\.common\.base\.Equivalence|com\.google\.common\.base\.Preconditions|
+            com\.google\.common\.base\.Optional|com\.google\.common\.io\.CharSource|
+            com\.google\.common\.primitives.*|com\.google\.common\.collect\.Sets|
+            com\.google\.common\.collect\.Queues|com\.google\.common\.collect\.Lists|
+            com\.google\.common\.annotations\.GwtCompatible|com\.google\.common\.io\.Files|
+            com\.google\.common\.collect\.TreeTraverser"/>
+            <property name="forbiddenImportsExcludesRegexp" value=""/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainImportsCheck">
+            <property name="packageNameRegexp"
+                      value=".+\.checkstyle\.api.*|.+\.checkstyle\.utils.*"/>
+            <property name="forbiddenImportsRegexp" value=".+\.checks\..+"/>
+            <!-- AccessModifier is in util package (should be moved to api package) to disallow
+            its usage by API clients till https://github.com/checkstyle/checkstyle/issues/3511-->
+            <property name="forbiddenImportsExcludesRegexp"
+                      value="^com.puppycrawl.tools.checkstyle.checks.naming.AccessModifier$"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.sizes.LineLengthExtendedCheck">
+            <property name="max" value="100"/>
+            <property name="ignoreClass" value="true"/>
+            <property name="ignoreConstructor" value="true"/>
+            <property name="ignoreField" value="true"/>
+            <property name="ignoreMethod" value="true"/>
+            <property name="ignorePattern" value="^( *\* *[^ ]+)|((package|import) .*)$"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.AvoidHidingCauseExceptionCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.MultipleStringLiteralsExtendedCheck">
+            <property name="highlightAllDuplicates" value="true"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.SimpleAccessorNameNotationCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.ForbidWildcardAsReturnTypeCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.CustomDeclarationOrderCheck">
+            <property name="customDeclarationOrder"
+                      value="InnerEnum(public .*)
+                      ### Field(public static final)
+                      ### Field(public static .*)
+                      ### Field(protected static final)
+                      ### Field(protected static .*)
+                      ### Field(static final)
+                      ### Field(static .*)
+                      ### Field(private static final)
+                      ### Field(private static .*)
+                      ### DeclareAnonClassField(public static final)
+                      ### DeclareAnonClassField((private|protected) static final)
+                      ### Field(@Autowired.* public)
+                      ### Field(@Inject.* public)
+                      ### Field(public.*)
+                      ### Field(public)
+                      ### Field(private final)
+                      ### Field(private.*)
+                      ### Field(private)
+                      ### Field(.*)
+                      ### Ctor(public)
+                      ### Ctor(private)
+                      ### MainMethod(.*)
+                      ### Method((public|protected)?(\w*\s)?abstract\s)
+                      ### Method(public static .*(new|edit|create|open|clone).*)
+                      ### Method(@Autowired.* public)
+                      ### Method(@Inject.* public)
+                      ### Method(.*)
+                      ### InnerEnum(private .*)
+                      ### InnerInterface(.*)
+                      ### InnerClass(.*)"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.LogicConditionNeedOptimizationCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.AvoidConditionInversionCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.SingleBreakOrContinueCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.NumericLiteralNeedsUnderscoreCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.naming.UniformEnumConstantNameCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.annotation.ForbidAnnotationElementValueCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.AvoidModifiersForTypesCheck">
+            <property name="forbiddenClassesRegexpProtected" value="Logger"/>
+            <property name="forbiddenClassesRegexpPublic" value="Logger"/>
+            <property name="forbiddenClassesRegexpPackagePrivate" value="Logger"/>
+            <property name="forbiddenClassesRegexpStatic" value="Logger"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.design.ConstructorWithoutParamsCheck">
+            <property name="classNameFormat" value=".*Exception$"/>
+            <property name="ignoredClassNameFormat" value="UnsupportedOperationException"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ReturnCountExtendedCheck">
+            <property name="maxReturnCount" value="1"/>
+            <property name="topLinesToIgnoreCount" value="5"/>
+            <property name="ignoreMethodLinesCount" value="0"/>
+            <property name="ignoreEmptyReturns" value="false"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.MoveVariableInsideIfCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.RequireFailForTryCatchInJunitCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.design.CheckstyleTestMakeupCheck"/>
+        <module name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck">
+            <property name="methodName" value="assert(True|False)"/>
+            <property name="argumentCount" value="1"/>
+        </module>
+        <module name="com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck">
+            <property name="packages" value="com,org"/>
+            <property name="allowOverridingReturnValue" value="false"/>
+            <property name="allowOverridingParameter" value="false"/>
+        </module>
+    </module>
+</module>

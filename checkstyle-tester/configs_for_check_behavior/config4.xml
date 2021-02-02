@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+
+    <!-- do not change severity to 'error', as that will hide errors caused by exceptions -->
+    <property name="severity" value="warning"/>
+
+    <!-- haltOnException is required for exception fixes and reporting of all exceptions -->
+    <property name="haltOnException" value="false"/>
+
+    <!-- BeforeExecutionFileFilters is required for sources of java9 -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+
+    <module name="TreeWalker">
+
+
+        <!-- Metrics -->
+        <module name="BooleanExpressionComplexity">
+            <property name="max" value="7"/>
+        </module>
+        <module name="ClassDataAbstractionCoupling">
+            <!-- Default classes are also listed -->
+            <property name="excludedClasses"
+                      value="boolean, byte, char, double, float, int, long, short, void,
+                       Boolean, Byte, Character, Double, Float, Integer, Long, Short, Void,
+                       Object, Class, String, StringBuffer, StringBuilder,
+                       ArrayIndexOutOfBoundsException, Exception, RuntimeException,
+                       IllegalArgumentException, IllegalStateException,
+                       IndexOutOfBoundsException, NullPointerException, Throwable,
+                       SecurityException, UnsupportedOperationException, List, ArrayList,
+                       Deque, Queue, LinkedList, Set, HashSet, SortedSet, TreeSet, Map,
+                       HashMap, SortedMap, TreeMap, DetailsAST, CheckstyleException,
+                       UnsupportedEncodingException, BuildException, ConversionException,
+                       FileNotFoundException, TestException"/>
+        </module>
+        <module name="ClassFanOutComplexity">
+            <property name="max" value="25"/>
+            <!-- Default classes are also listed -->
+            <property name="excludedClasses"
+                      value="boolean, byte, char, double, float, int, long, short,
+                       void, Boolean, Byte, Character, Double, Float, Integer,
+                       Long, Short, Void, Object, Class, String, StringBuffer,
+                       StringBuilder, ArrayIndexOutOfBoundsException, Exception,
+                       RuntimeException, IllegalArgumentException, IllegalStateException,
+                       IndexOutOfBoundsException, NullPointerException, Throwable,
+                       SecurityException, UnsupportedOperationException, List, ArrayList,
+                       Deque, Queue, LinkedList, Set, HashSet, SortedSet, TreeSet, Map,
+                       HashMap, SortedMap, TreeMap, DetailsAST, CheckstyleException,
+                       UnsupportedEncodingException, BuildException, ConversionException,
+                       FileNotFoundException, TestException, Log, Sets, Multimap,
+                       TokenStreamRecognitionException, RecognitionException,
+                       TokenStreamException, IOException, Override, Deprecated, SafeVarargs,
+                       SuppressWarnings, FunctionalInterface"/>
+        </module>
+        <module name="CyclomaticComplexity">
+            <property name="switchBlockAsSingleDecisionPoint" value="true"/>
+        </module>
+        <module name="JavaNCSS"/>
+        <module name="NPathComplexity"/>
+
+        <!-- Misc -->
+        <module name="ArrayTypeStyle"/>
+        <module name="AvoidEscapedUnicodeCharacters">
+            <property name="allowIfAllCharactersEscaped" value="true"/>
+        </module>
+        <module name="CommentsIndentation"/>
+        <module name="DescendantToken"/>
+        <module name="FinalParameters">
+            <!--
+              we will not use that fanatic validation, extra modifiers pollute a code
+              it is better to use extra validation(Check) that argument is reassigned
+              But this Check will exists as it was created by community demand.
+            -->
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="braceAdjustment" value="0"/>
+            <property name="caseIndent" value="4"/>
+            <property name="throwsIndent" value="8"/>
+        </module>
+        <module name="OuterTypeFilename"/>
+        <module name="TodoComment">
+            <property name="format" value="(TODO)|(FIXME)"/>
+        </module>
+        <!-- till https://github.com/checkstyle/checkstyle/issues/7388 -->
+        <module name="TodoComment">
+            <property name="id" value="commentStartWithSpace"/>
+            <property name="format" value="^([^\s\/*])"/>
+            <message key="todo.match" value="Comment text should start with space."/>
+        </module>
+        <module name="TrailingComment"/>
+        <module name="UncommentedMain">
+            <property name="excludedClasses" value="\.(Main|JavadocPropertiesGenerator)$"/>
+        </module>
+        <module name="UpperEll"/>
+
+        <!-- Modifiers -->
+        <module name="ClassMemberImpliedModifier">
+            <!-- effectively the opposite of RedundantModifier, so output must be ignored -->
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="InterfaceMemberImpliedModifier">
+            <!-- effectively the opposite of RedundantModifier, so output must be ignored -->
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- Naming Conventions -->
+        <module name="AbbreviationAsWordInName">
+            <property name="ignoreFinal" value="false"/>
+            <property name="allowedAbbreviationLength" value="0"/>
+            <property name="allowedAbbreviations" value="AST"/>
+        </module>
+        <module name="AbstractClassName"/>
+        <module name="ClassTypeParameterName"/>
+        <module name="RecordTypeParameterName"/>
+        <module name="RecordComponentName"/>
+        <module name="ConstantName"/>
+        <module name="InterfaceTypeParameterName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+            <property name="allowOneCharVarInForLoop" value="true"/>
+        </module>
+        <module name="MemberName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+        </module>
+        <module name="MethodName"/>
+        <module name="MethodTypeParameterName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+            <property name="ignoreOverridden" value="true"/>
+        </module>
+        <module name="LambdaParameterName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+        </module>
+        <module name="CatchParameterName">
+            <property name="format" value="^(ex|[a-z][a-z][a-zA-Z]+)$"/>
+        </module>
+        <module name="StaticVariableName">
+            <property name="format" value="^(id)|([a-z][a-z0-9][a-zA-Z0-9]+)$"/>
+        </module>
+        <module name="TypeName"/>
+        <module name="PatternVariableName"/>
+        <module name="IllegalIdentifierName"/>
+
+        <!-- Regexp -->
+        <module name="Regexp"/>
+        <module name="RegexpSinglelineJava"/>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="[^\p{ASCII}]"/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+
+        <!-- Size Violations -->
+        <module name="AnonInnerLength"/>
+        <module name="ExecutableStatementCount">
+            <property name="max" value="30"/>
+        </module>
+        <module name="LambdaBodyLength"/>
+        <module name="MethodCount">
+            <property name="maxTotal" value="34"/>
+        </module>
+        <module name="MethodLength"/>
+        <module name="OuterTypeNumber"/>
+        <module name="ParameterNumber"/>
+        <module name="RecordComponentNumber"/>
+
+
+        <!-- usuppress javadoc parsing errors, as we test Check not a parser -->
+        <module name="SuppressionXpathSingleFilter">
+            <property name="message" value="Javadoc comment at column \d+ has parse error"/>
+        </module>
+    </module>
+
+    <!-- as we run on regression even on non-compiled files we need to skip exceptions on them -->
+    <module name="SuppressionSingleFilter">
+        <property name="message" value="Exception occurred while parsing"/>
+        <property name="checks" value="Checker"/>
+    </module>
+</module>
