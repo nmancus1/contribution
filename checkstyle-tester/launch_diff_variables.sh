@@ -9,9 +9,9 @@ CONTACTSERVER=true
 
 PULL_REMOTE=remotes/origin
 
-CHECKSTYLE_DIR=~/checkstyle/checkstyle
-SEVNTU_DIR=~/checkstyle/sevntu.checkstyle
-CONTRIBUTION_DIR=~/checkstyle/contribution
+CHECKSTYLE_DIR=~/development/checkstyle
+SEVNTU_DIR=~/development/sevntu.checkstyle
+CONTRIBUTION_DIR=~/development/contribution
 TEMP_DIR=/tmp/launch_diff
 
 TESTER_DIR=$CONTRIBUTION_DIR/checkstyle-tester
