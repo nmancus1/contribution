@@ -11,6 +11,8 @@
 
       Some other checks are commented out to speed up execution time.
     -->
+        <!-- haltOnException is required for exception fixes and reporting of all exceptions -->
+    <property name="haltOnException" value="false"/>
 
     <property name="severity" value="ignore"/>
 
