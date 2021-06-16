@@ -499,28 +499,30 @@ def generateSummaryIndexHtml(diffDir, checkstyleBaseReportInfo, checkstylePatchR
 def printConfigSection(diffDir, configFilesList, summaryIndexHtml) {
     def textTransform = getTextTransform();
     for (filename in configFilesList) {
-        def configFile = new File(filename)
-        generateAndPrintConfigHtmlFile(diffDir, configFile, textTransform,
+        generateAndPrintConfigHtmlFile(diffDir, filename, textTransform,
             summaryIndexHtml)
     }
 }
 
 def generateAndPrintConfigHtmlFile(diffDir, configFile, textTransform, summaryIndexHtml) {
-    def configfilenameWithoutExtension = getFilenameWithoutExtension(configFile.name)
+    def configfilenameWithoutExtension = getFilenameWithoutExtension(configFile)
     def configFileHtml = new File("$diffDir/${configfilenameWithoutExtension}.html")
-    textTransform.transform(configFile.name, configFileHtml.toPath().toString(), Locale.ENGLISH,
+    textTransform.transform(configFile, configFileHtml.toPath().toString(), Locale.ENGLISH,
         "UTF-8", "UTF-8")
 
     summaryIndexHtml << ('<h6>')
-    summaryIndexHtml << ("<a href='${configFileHtml.name}'>${configFile.name} file</a>")
+    summaryIndexHtml << ("<a href='${configFileHtml.name}'>${configFile} file</a>")
     summaryIndexHtml << ('</h6>')
 }
-
 def getFilenameWithoutExtension(filename) {
     def filenameWithoutExtension
-    int pos = filename.lastIndexOf(".");
-    if (pos > 0) {
-        filenameWithoutExtension = filename.substring(0, pos);
+    int start = filename.lastIndexOf("/");
+    if (start < 0) {
+        start = 0;
+    }
+    int end = filename.lastIndexOf(".");
+    if (end > 0) {
+        filenameWithoutExtension = filename.substring(start, end);
     }
     return filenameWithoutExtension
 }
