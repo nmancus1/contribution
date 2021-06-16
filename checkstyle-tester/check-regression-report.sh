@@ -5,11 +5,11 @@
 ################ SETUP ##################
 checkstyle_tester_dir=$(pwd)
 #Set your checkstyle directory below
-checkstyle_directory=${HOME}/checkstyle/checkstyle
-#Set desired output directory below 
-output_dir=${HOME}/checkstyle/reports_logs
+checkstyle_directory=${HOME}/IdeaProjects/checkstyle
+#Set desired output directory below
+output_dir=${HOME}/IdeaProjects/reports_logs
 #Set desired directory with configs below
-config_directory=${HOME}/checkstyle/configs/split-check-files
+config_directory=${HOME}/IdeaProjects/contribution/checkstyle-tester/split-check-files
 ##########################################
 
 #Set time variable for tracking report and log generation
@@ -41,7 +41,7 @@ echo "Reports will populate in $report_directory"
 #Iterate through every config file in specified directory and generate report
 for file in $config_directory/*.xml;
 do
-    #filename=$(echo $file | sed "s/.*\///" | cut -c -5) 
+    #filename=$(echo $file | sed "s/.*\///" | cut -c -5)
     filename=$(basename -- "$file")
     filename="${filename%.*}"
 	echo "Running check regression report using config file $file..."
@@ -50,6 +50,7 @@ do
     -b master -p $PATCH_BRANCH \
     -c $file \
     -l projects-to-test-on.properties \
+    -xm "-Dcheckstyle.failsOnError=false -Dsevntu-checkstyle.version=1.39.0-SNAPSHOT" \
     > "$log_directory"/logfile_$filename 2>&1
     sleep 5
 
